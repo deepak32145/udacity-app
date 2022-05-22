@@ -1,25 +1,30 @@
-import logo from "./logo.svg";
 import "./App.css";
+import * as BookApi from "./BooksApi";
+import { Route, Link } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React JS
-        </a>
-      </header>
-    </div>
-  );
+import React from "react";
+
+class App extends React.Component {
+  state = {
+    books: [],
+    message: "no books on shelf",
+  };
+
+  shelveChange() {}
+
+  componentDidMount() {
+    BookApi.getAll()
+      .then((books) => this.setState({ books }))
+      .catch((err) => console.log("error in api", err));
+  }
+  render() {
+    return (
+      <div className="App">
+        <Route exact path="/search" render={() => {}} />
+        <Route exact path="/" render={() => {}} />
+      </div>
+    );
+  }
 }
 
 export default App;
